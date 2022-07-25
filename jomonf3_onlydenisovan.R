@@ -1,32 +1,38 @@
-pops <- read.csv("1000G.p3.name.csv",header=F)
+pops <- read.csv("downloads/1KG/1000G.p3.name.csv",header=F)
 
 test_sum <- as.vector(pops$V1[-c(1)])
 test_sum <- append(test_sum,c("Jomon","IK002.maf001_Jomon","JpFu1","JpKo13","JpHi01","JpKo2","JpIw31","JpOd181","JpIw32","JpOd274","JpIw33","JpOd282","JpKa6904","JpOd6"))
 test_pop <- as.vector(pops$V7[-c(1)])
 test_pop <- append(test_pop,c("Jomon","IK002.maf001_Jomon","JpFu1","JpKo13","JpHi01","JpKo2","JpIw31","JpOd181","JpIw32","JpOd274","JpIw33","JpOd282","JpKa6904","JpOd6"))
 df1 <- data.frame(v1=test_sum,v2="U",v3=test_pop)
-write.table(df1,"j_f3_analysis.ind",quote=F,col.names=F,row.names=F)
+write.table(df1,"analysis_jomonf3_onlydenisovan/results/j_f3_analysis_onlydenisovan.ind",quote=F,col.names=F,row.names=F)
 
 test_pop2 <- as.vector(pops$V7[-c(1)])
 test_pop2 <- append(test_pop2,c("Jomon","Jomon","Jomon","Jomon","Jomon","Jomon","Kofun","Jomon","Kofun","Jomon","Kofun","Jomon","Jomon","Jomon"))
 df1 <- data.frame(v1=test_sum,v2="U",v3=test_pop2)
-write.table(df1,"j_f3_analysis2.ind",quote=F,col.names=F,row.names=F)
+write.table(df1,"analysis_jomonf3_onlydenisovan/results/j_f3_analysis2_onlydenisovan.ind",quote=F,col.names=F,row.names=F)
 
-
-for(ah in c("altai","chagyrskaya","vindija","denisova")){
-
-
-out <- file(sprintf("j_f3_analysis_%s.geno",ah),"w")
-out2 <- file(sprintf("j_f3_analysis_%s.snp",ah),"w")
+ah = "onlydenisovan"
+out <- file(sprintf("analysis_jomonf3_onlydenisovan/results/j_f3_analysis_%s.geno",ah),"w")
+out2 <- file(sprintf("analysis_jomonf3_onlydenisovan/results/j_f3_analysis_%s.snp",ah),"w")
 #set.seed(123)
 start.time<-proc.time()
 
 
 for(chrnum in 1:22){
-
-df <- read.csv(sprintf("chr%s-yri0%s1.csv",chrnum,ah))
-r <- df[,1]
+  dfa <- read.csv(sprintf("analysis_jomonf3_archaichom./chr%s-yri0altai1.csv",chrnum))
+  dfd <- read.csv(sprintf("analysis_jomonf3_archaichom./chr%s-yri0denisova1.csv",chrnum))
   
+  df_ad <- merge(dfa,dfd,by.x="POS",by.y="POS",all.x=F,all.y=T)
+  write.csv(df_ad,sprintf("analysis_jomonf3_onlydenisovan/results/chr%s-yri0al1den1.csv",chrnum))
+  df <- subset(df_ad,df_ad[,2]==NA)
+  write.csv(df,sprintf("analysis_jomonf3_onlydenisovan/results/chr%s-yri0al0den1.csv",chrnum))
+}
+
+for(chrnum in 1:22){
+  df <- read.csv(sprintf("analysis_jomonf3_onlydenisovan/results/chr%s-yri0al0den1.csv",chrnum))
+  r <- df[,1]
+
   if(chrnum < 10){
     f <- file(sprintf("j_merged0%s.txt",chrnum),"r")
   }else{
@@ -85,5 +91,3 @@ end.time-start.time
 close(f)
 close(out)
 close(out2)
-
-}
