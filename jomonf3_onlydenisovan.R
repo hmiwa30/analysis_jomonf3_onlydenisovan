@@ -24,9 +24,9 @@ for(chrnum in 1:22){
   dfd <- read.csv(sprintf("analysis_jomonf3_archaichom./chr%s-yri0denisova1.csv",chrnum))
   
   df_ad <- merge(dfa,dfd,by.x="POS",by.y="POS",all.x=F,all.y=T)
-  write.csv(df_ad,sprintf("analysis_jomonf3_onlydenisovan/results/chr%s-yri0al1den1.csv",chrnum))
+  write.csv(df_ad,sprintf("analysis_jomonf3_onlydenisovan/results/chr%s-yri0al1den1.csv",chrnum),row.names=F)
   df <- subset(df_ad,df_ad[,2]==NA)
-  write.csv(df,sprintf("analysis_jomonf3_onlydenisovan/results/chr%s-yri0al0den1.csv",chrnum))
+  write.csv(df,sprintf("analysis_jomonf3_onlydenisovan/results/chr%s-yri0al0den1.csv",chrnum),row.names=F)
 }
 
 for(chrnum in 1:22){
