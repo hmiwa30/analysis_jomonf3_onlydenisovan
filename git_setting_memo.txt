@@ -1,0 +1,5 @@
+cd analysis_jomonf3_onlydenisovan
+git init
+git remote add origin git@github.com:hmiwa30/analysis_jomonf3_onlydenisovan.git
+git pull origin HEAD:main
+#README.md in this directory!
