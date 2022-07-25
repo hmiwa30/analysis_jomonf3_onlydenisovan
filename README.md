@@ -8,3 +8,5 @@
 この考えを検証したい。
 
 /lustre7/home/hmiwa-spc/hmiwa/analysis_jomonf3_onlydenisovan/
+
+altai,chagyrskaya,vindija(Neanderthals)に「まったく存在しない変異」とするとかなり少なくなると予想されるので、Denisovan候補変異のなかで暫定的にAltaiに存在しないものだけを考える。
