@@ -25,7 +25,7 @@ for(chrnum in 1:22){
   
   df_ad <- merge(dfa,dfd,by.x="POS",by.y="POS",all.x=F,all.y=T)
   write.csv(df_ad,sprintf("analysis_jomonf3_onlydenisovan/results/chr%s-yri0al1den1.csv",chrnum),row.names=F)
-  df <- subset(df_ad,df_ad[,2]==NA)
+  df <- subset(df_ad,is.na(df_ad[,3])==T)
   write.csv(df,sprintf("analysis_jomonf3_onlydenisovan/results/chr%s-yri0al0den1.csv",chrnum),row.names=F)
 }
 
