@@ -34,9 +34,9 @@ for(chrnum in 1:22){
   r <- df[,1]
 
   if(chrnum < 10){
-    f <- file(sprintf("j_merged0%s.txt",chrnum),"r")
+    f <- file(sprintf("analysis_jomonf3_onlydenisovan/results/j_merged0%s.txt",chrnum),"r")
   }else{
-    f <- file(sprintf("j_merged%s.txt",chrnum),"r")
+    f <- file(sprintf("analysis_jomonf3_onlydenisovan/results/j_merged%s.txt",chrnum),"r")
   }
   
   repeat{
