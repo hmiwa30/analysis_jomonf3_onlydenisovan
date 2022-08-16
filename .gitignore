@@ -1,2 +1,4 @@
 # results フォルダは要らない
 results/
+sources/
+.Rproj.user
