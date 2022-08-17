@@ -1,0 +1,298 @@
+
+R version 3.6.3 (2020-02-29) -- "Holding the Windsock"
+Copyright (C) 2020 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> .libPaths("C:\\Users\\himar\\Documents\\R")
+> .libPaths()
+[1] "C:/Users/himar/Documents/R"         "C:/Program Files/R/R-3.6.3/library"
+> #install.packages("shiny")
+> #install.packages("shinythemes")
+> #install.packages("shinyjs")
+> #install.packages("shinyBS")
+> #install.packages("shinyFiles")
+> #install.packages("shinyalert")
+> #install.packages("shinyWidgets")
+> #install.packages("shinydashboard")
+> #install.packages("DT")
+> #install.packages("jquerylib")
+> library(admixtools)
+> #################################
+> gc(reset=T)
+          used (Mb) gc trigger (Mb) max used (Mb)
+Ncells  928590 49.6    1856040 99.2   928590 49.6
+Vcells 2117591 16.2    8388608 64.0  2117591 16.2
+> gc(reset=T)
+          used (Mb) gc trigger (Mb) max used (Mb)
+Ncells  928581 49.6    1856040 99.2   928581 49.6
+Vcells 2117587 16.2    8388608 64.0  2117587 16.2
+> 
+> ah="onlydenisovan"
+> 
+> # extract_f2 ####
+> 
+> prefix = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\sources\\j_f3_analysis_%s",ah)
+> my_f2_dir = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\output_%s",ah)
+> extract_f2(prefix, my_f2_dir)
+i Reading allele frequencies from EIGENSTRAT files...
+i j_f3_analysis_onlydenisovan.geno has 2518 samples and 7095 SNPs
+i Calculating allele frequencies from 2518 samples in 40 populations
+! 7095 SNPs remain after filtering. 7095 are polymorphic.
+i Allele frequency matrix for 7095 SNPs and 40 populations is 2 MB
+i Computing pairwise f2 for all SNPs and population pairs requires 196 MB RAM without splitting
+i Computing without splitting since 196 < 8000 (maxmem)...
+i Data written to G:\hmiwa\m_20211215\08_jomonf3_2\analysis_jomonf3_onlydenisovan\results\output_onlydenisovan/
+Warning messages:
+1: In get_block_lengths(afdat$snpfile[sp, ], blgsize = blgsize) :
+  No genetic linkage map found! Defining blocks by base pair distance of 2e+06
+2: In get_block_lengths(afdat$snpfile[sn, ], blgsize = blgsize) :
+  No genetic linkage map found! Defining blocks by base pair distance of 2e+06
+> 
+> prefix = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\sources\\j_f3_analysis2_%s",ah)
+> my_f2_dir = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\output2_%s",ah)
+> extract_f2(prefix, my_f2_dir)
+i Reading allele frequencies from EIGENSTRAT files...
+i j_f3_analysis2_onlydenisovan.geno has 2518 samples and 7095 SNPs
+i Calculating allele frequencies from 2518 samples in 28 populations
+! 7095 SNPs remain after filtering. 7095 are polymorphic.
+i Allele frequency matrix for 7095 SNPs and 28 populations is 2 MB
+i Computing pairwise f2 for all SNPs and population pairs requires 99 MB RAM without splitting
+i Computing without splitting since 99 < 8000 (maxmem)...
+i Data written to G:\hmiwa\m_20211215\08_jomonf3_2\analysis_jomonf3_onlydenisovan\results\output2_onlydenisovan/
+Warning messages:
+1: In get_block_lengths(afdat$snpfile[sp, ], blgsize = blgsize) :
+  No genetic linkage map found! Defining blocks by base pair distance of 2e+06
+2: In get_block_lengths(afdat$snpfile[sn, ], blgsize = blgsize) :
+  No genetic linkage map found! Defining blocks by base pair distance of 2e+06
+> 
+> # f2_blocks & f3 ####
+> 
+> my_f2_dir = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\output_%s",ah)
+> f2_blocks = f2_from_precomp(my_f2_dir)
+i Reading precomputed data for 40 populations...
+i Reading f2 data for pair 820 out of 820...
+Warning message:
+In f2_from_precomp(my_f2_dir) :
+  Some f2-statistic estimates are negative across blocks. This is probably caused by too many missing or rare SNPs in populations with low sample size, which makes the f2 bias correction unreliable. Consider running 'f2_from_precomp' with 'afprod = TRUE'.
+> dim(f2_blocks)
+[1]  40  40 756
+> lista <- read.table("G:\\hmiwa\\m_20211215\\05_jomonf3\\Geno\\lista.txt")$V1
+> (pop1 = as.character(lista[1]))
+[1] "YRI"
+> (pop2 = as.character(lista[9]))
+[1] "FIN"
+> (pop3 = as.character(lista[-1]))
+ [1] "ASW"                "ACB"                "BEB"               
+ [4] "GBR"                "CDX"                "CLM"               
+ [7] "ESN"                "FIN"                "GWD"               
+[10] "GIH"                "CHB"                "CHS"               
+[13] "IBS"                "ITU"                "JPT"               
+[16] "KHV"                "LWK"                "MSL"               
+[19] "MXL"                "PEL"                "PUR"               
+[22] "PJL"                "STU"                "TSI"               
+[25] "CEU"                "Jomon"              "IK002.maf001_Jomon"
+[28] "JpFu1"              "JpKo13"             "JpHi01"            
+[31] "JpKo2"              "JpIw31"             "JpOd181"           
+[34] "JpIw32"             "JpOd274"            "JpIw33"            
+[37] "JpOd282"            "JpKa6904"           "JpOd6"             
+> dat.f3=f3(f2_blocks,pop1,pop2,pop3)
+> write.table(dat.f3,sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\f3_FIN_%s.txt",ah),
++             quote=F,row.names=F)
+> 
+> my_f2_dir = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\output2_%s",ah)
+> f2_blocks = f2_from_precomp(my_f2_dir)
+i Reading precomputed data for 28 populations...
+i Reading f2 data for pair 406 out of 406...
+Warning message:
+In f2_from_precomp(my_f2_dir) :
+  Some f2-statistic estimates are negative across blocks. This is probably caused by too many missing or rare SNPs in populations with low sample size, which makes the f2 bias correction unreliable. Consider running 'f2_from_precomp' with 'afprod = TRUE'.
+> dim(f2_blocks)
+[1]  28  28 756
+> lista <- read.table("G:\\hmiwa\\m_20211215\\05_jomonf3\\Geno\\lista2.txt")$V1
+> (pop1 = as.character(lista[1]))
+[1] "YRI"
+> (pop2 = as.character(lista[9]))
+[1] "FIN"
+> (pop3 = as.character(lista[-1]))
+ [1] "ASW"   "ACB"   "BEB"   "GBR"   "CDX"   "CLM"   "ESN"   "FIN"   "GWD"   "GIH"  
+[11] "CHB"   "CHS"   "IBS"   "ITU"   "JPT"   "KHV"   "LWK"   "MSL"   "MXL"   "PEL"  
+[21] "PUR"   "PJL"   "STU"   "TSI"   "CEU"   "Jomon" "Kofun"
+> dat.f3=f3(f2_blocks,pop1,pop2,pop3)
+> write.table(dat.f3,sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\f3_FIN2_%s.txt",ah),
++             quote=F,row.names=F)
+> 
+> my_f2_dir = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\output_%s",ah)
+> f2_blocks = f2_from_precomp(my_f2_dir)
+i Reading precomputed data for 40 populations...
+i Reading f2 data for pair 820 out of 820...
+Warning message:
+In f2_from_precomp(my_f2_dir) :
+  Some f2-statistic estimates are negative across blocks. This is probably caused by too many missing or rare SNPs in populations with low sample size, which makes the f2 bias correction unreliable. Consider running 'f2_from_precomp' with 'afprod = TRUE'.
+> dim(f2_blocks)
+[1]  40  40 756
+> lista <- read.table("G:\\hmiwa\\m_20211215\\05_jomonf3\\Geno\\lista.txt")$V1
+> (pop1 = as.character(lista[1]))
+[1] "YRI"
+> (pop2 = as.character(lista[5]))
+[1] "GBR"
+> (pop3 = as.character(lista[-1]))
+ [1] "ASW"                "ACB"                "BEB"               
+ [4] "GBR"                "CDX"                "CLM"               
+ [7] "ESN"                "FIN"                "GWD"               
+[10] "GIH"                "CHB"                "CHS"               
+[13] "IBS"                "ITU"                "JPT"               
+[16] "KHV"                "LWK"                "MSL"               
+[19] "MXL"                "PEL"                "PUR"               
+[22] "PJL"                "STU"                "TSI"               
+[25] "CEU"                "Jomon"              "IK002.maf001_Jomon"
+[28] "JpFu1"              "JpKo13"             "JpHi01"            
+[31] "JpKo2"              "JpIw31"             "JpOd181"           
+[34] "JpIw32"             "JpOd274"            "JpIw33"            
+[37] "JpOd282"            "JpKa6904"           "JpOd6"             
+> dat.f3=f3(f2_blocks,pop1,pop2,pop3)
+> write.table(dat.f3,sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\f3_GBR_%s.txt",ah),
++             quote=F,row.names=F)
+> 
+> my_f2_dir = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\output2_%s",ah)
+> f2_blocks = f2_from_precomp(my_f2_dir)
+i Reading precomputed data for 28 populations...
+i Reading f2 data for pair 406 out of 406...
+Warning message:
+In f2_from_precomp(my_f2_dir) :
+  Some f2-statistic estimates are negative across blocks. This is probably caused by too many missing or rare SNPs in populations with low sample size, which makes the f2 bias correction unreliable. Consider running 'f2_from_precomp' with 'afprod = TRUE'.
+> dim(f2_blocks)
+[1]  28  28 756
+> lista <- read.table("G:\\hmiwa\\m_20211215\\05_jomonf3\\Geno\\lista2.txt")$V1
+> (pop1 = as.character(lista[1]))
+[1] "YRI"
+> (pop2 = as.character(lista[5]))
+[1] "GBR"
+> (pop3 = as.character(lista[-1]))
+ [1] "ASW"   "ACB"   "BEB"   "GBR"   "CDX"   "CLM"   "ESN"   "FIN"   "GWD"   "GIH"  
+[11] "CHB"   "CHS"   "IBS"   "ITU"   "JPT"   "KHV"   "LWK"   "MSL"   "MXL"   "PEL"  
+[21] "PUR"   "PJL"   "STU"   "TSI"   "CEU"   "Jomon" "Kofun"
+> dat.f3=f3(f2_blocks,pop1,pop2,pop3)
+> write.table(dat.f3,sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\f3_GBR2_%s.txt",ah),
++             quote=F,row.names=F)
+> 
+> my_f2_dir = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\output_%s",ah)
+> f2_blocks = f2_from_precomp(my_f2_dir)
+i Reading precomputed data for 40 populations...
+i Reading f2 data for pair 820 out of 820...
+Warning message:
+In f2_from_precomp(my_f2_dir) :
+  Some f2-statistic estimates are negative across blocks. This is probably caused by too many missing or rare SNPs in populations with low sample size, which makes the f2 bias correction unreliable. Consider running 'f2_from_precomp' with 'afprod = TRUE'.
+> dim(f2_blocks)
+[1]  40  40 756
+> lista <- read.table("G:\\hmiwa\\m_20211215\\05_jomonf3\\Geno\\lista.txt")$V1
+> (pop1 = as.character(lista[1]))
+[1] "YRI"
+> (pop2 = as.character(lista[16]))
+[1] "JPT"
+> (pop3 = as.character(lista[-1]))
+ [1] "ASW"                "ACB"                "BEB"               
+ [4] "GBR"                "CDX"                "CLM"               
+ [7] "ESN"                "FIN"                "GWD"               
+[10] "GIH"                "CHB"                "CHS"               
+[13] "IBS"                "ITU"                "JPT"               
+[16] "KHV"                "LWK"                "MSL"               
+[19] "MXL"                "PEL"                "PUR"               
+[22] "PJL"                "STU"                "TSI"               
+[25] "CEU"                "Jomon"              "IK002.maf001_Jomon"
+[28] "JpFu1"              "JpKo13"             "JpHi01"            
+[31] "JpKo2"              "JpIw31"             "JpOd181"           
+[34] "JpIw32"             "JpOd274"            "JpIw33"            
+[37] "JpOd282"            "JpKa6904"           "JpOd6"             
+> dat.f3=f3(f2_blocks,pop1,pop2,pop3)
+> write.table(dat.f3,sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\f3_JPT_%s.txt",ah),
++             quote=F,row.names=F)
+> 
+> my_f2_dir = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\output2_%s",ah)
+> f2_blocks = f2_from_precomp(my_f2_dir)
+i Reading precomputed data for 28 populations...
+i Reading f2 data for pair 406 out of 406...
+Warning message:
+In f2_from_precomp(my_f2_dir) :
+  Some f2-statistic estimates are negative across blocks. This is probably caused by too many missing or rare SNPs in populations with low sample size, which makes the f2 bias correction unreliable. Consider running 'f2_from_precomp' with 'afprod = TRUE'.
+> dim(f2_blocks)
+[1]  28  28 756
+> lista <- read.table("G:\\hmiwa\\m_20211215\\05_jomonf3\\Geno\\lista2.txt")$V1
+> (pop1 = as.character(lista[1]))
+[1] "YRI"
+> (pop2 = as.character(lista[16]))
+[1] "JPT"
+> (pop3 = as.character(lista[-1]))
+ [1] "ASW"   "ACB"   "BEB"   "GBR"   "CDX"   "CLM"   "ESN"   "FIN"   "GWD"   "GIH"  
+[11] "CHB"   "CHS"   "IBS"   "ITU"   "JPT"   "KHV"   "LWK"   "MSL"   "MXL"   "PEL"  
+[21] "PUR"   "PJL"   "STU"   "TSI"   "CEU"   "Jomon" "Kofun"
+> dat.f3=f3(f2_blocks,pop1,pop2,pop3)
+> write.table(dat.f3,sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\f3_JPT2_%s.txt",ah),
++             quote=F,row.names=F)
+> 
+> 
+> my_f2_dir = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\output_%s",ah)
+> f2_blocks = f2_from_precomp(my_f2_dir)
+i Reading precomputed data for 40 populations...
+i Reading f2 data for pair 820 out of 820...
+Warning message:
+In f2_from_precomp(my_f2_dir) :
+  Some f2-statistic estimates are negative across blocks. This is probably caused by too many missing or rare SNPs in populations with low sample size, which makes the f2 bias correction unreliable. Consider running 'f2_from_precomp' with 'afprod = TRUE'.
+> dim(f2_blocks)
+[1]  40  40 756
+> lista <- read.table("G:\\hmiwa\\m_20211215\\05_jomonf3\\Geno\\lista.txt")$V1
+> (pop1 = as.character(lista[1]))
+[1] "YRI"
+> (pop2 = as.character(lista[27]))
+[1] "Jomon"
+> (pop3 = as.character(lista[-1]))
+ [1] "ASW"                "ACB"                "BEB"               
+ [4] "GBR"                "CDX"                "CLM"               
+ [7] "ESN"                "FIN"                "GWD"               
+[10] "GIH"                "CHB"                "CHS"               
+[13] "IBS"                "ITU"                "JPT"               
+[16] "KHV"                "LWK"                "MSL"               
+[19] "MXL"                "PEL"                "PUR"               
+[22] "PJL"                "STU"                "TSI"               
+[25] "CEU"                "Jomon"              "IK002.maf001_Jomon"
+[28] "JpFu1"              "JpKo13"             "JpHi01"            
+[31] "JpKo2"              "JpIw31"             "JpOd181"           
+[34] "JpIw32"             "JpOd274"            "JpIw33"            
+[37] "JpOd282"            "JpKa6904"           "JpOd6"             
+> dat.f3=f3(f2_blocks,pop1,pop2,pop3)
+> write.table(dat.f3,sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\f3_Jomon_%s.txt",ah),
++             quote=F,row.names=F)
+> 
+> my_f2_dir = sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\output2_%s",ah)
+> f2_blocks = f2_from_precomp(my_f2_dir)
+i Reading precomputed data for 28 populations...
+i Reading f2 data for pair 406 out of 406...
+Warning message:
+In f2_from_precomp(my_f2_dir) :
+  Some f2-statistic estimates are negative across blocks. This is probably caused by too many missing or rare SNPs in populations with low sample size, which makes the f2 bias correction unreliable. Consider running 'f2_from_precomp' with 'afprod = TRUE'.
+> dim(f2_blocks)
+[1]  28  28 756
+> lista <- read.table("G:\\hmiwa\\m_20211215\\05_jomonf3\\Geno\\lista2.txt")$V1
+> (pop1 = as.character(lista[1]))
+[1] "YRI"
+> (pop2 = as.character(lista[27]))
+[1] "Jomon"
+> (pop3 = as.character(lista[-1]))
+ [1] "ASW"   "ACB"   "BEB"   "GBR"   "CDX"   "CLM"   "ESN"   "FIN"   "GWD"   "GIH"  
+[11] "CHB"   "CHS"   "IBS"   "ITU"   "JPT"   "KHV"   "LWK"   "MSL"   "MXL"   "PEL"  
+[21] "PUR"   "PJL"   "STU"   "TSI"   "CEU"   "Jomon" "Kofun"
+> dat.f3=f3(f2_blocks,pop1,pop2,pop3)
+> write.table(dat.f3,sprintf("G:\\hmiwa\\m_20211215\\08_jomonf3_2\\analysis_jomonf3_onlydenisovan\\results\\f3_Jomon2_%s.txt",ah),
++             quote=F,row.names=F)
+> 
