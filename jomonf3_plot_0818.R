@@ -327,8 +327,8 @@ g <- ggplot(resultf3.dat.3pop,aes(x=f3,y=sample,color=pop,shape=dat)) +
   theme(axis.text.x = element_text(size = 15)) +
   theme(axis.text.y = element_text(size = 15)) + 
   theme(axis.text.x = element_text(angle = 75)) +
-  scale_x_continuous(limits = c(-0.001, 0.03))
-#scale_x_continuous(limits = c(-0.001, 0.001+max(resultf3.dat.3pop$f3)))
+  #scale_x_continuous(limits = c(-0.001, 0.03))
+scale_x_continuous(limits = c(-0.001, 0.001+max(resultf3.dat.3pop$f3)))
 
 plot(g)
 
@@ -400,8 +400,8 @@ g <- ggplot(resultf3.dat.3pop,aes(x=f3,y=sample,color=pop,shape=dat)) +
   theme(axis.text.x = element_text(size = 15)) +
   theme(axis.text.y = element_text(size = 15)) + 
   theme(axis.text.x = element_text(angle = 75)) +
-  scale_x_continuous(limits = c(-0.001, 0.03))
-#scale_x_continuous(limits = c(-0.001, 0.001+max(resultf3.dat.3pop$f3)))
+  #scale_x_continuous(limits = c(-0.001, 0.03))
+scale_x_continuous(limits = c(-0.001, 0.001+max(resultf3.dat.3pop$f3)))
 
 plot(g)
 
